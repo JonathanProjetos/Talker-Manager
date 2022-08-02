@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs').promises;
-const talker = require('./talker.json');
-const { application } = require('express');
+const { keyRandomToken } = require('./middlewares/tokenGenerator')
+// const talker = require('./talker.json');
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,7 +31,13 @@ app.get('/talker/:id', async(req, res) => {
   const result = talkerList.find((d) => d.id === Number(id));
   if(!result) return res.status(404).json({ "message": "Pessoa palestrante não encontrada"});
   return res.status(200).json(result);
-})
+});
+
+app.post('/login', (req, res, next) => {
+  const { name, password } = req.body;
+  const token = keyRandomToken();
+  if(name, password) return res.status(200).json({token})
+});
 
 app.listen(PORT, () => {
   console.log('Online');
