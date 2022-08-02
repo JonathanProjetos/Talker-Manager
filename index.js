@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs').promises;
 const { keyRandomToken } = require('./middlewares/tokenGenerator')
+const { validateEmail, validatePassword } = require('./middlewares/verifyEmailPassword')
 // const talker = require('./talker.json');
 
 const app = express();
@@ -33,7 +34,7 @@ app.get('/talker/:id', async(req, res) => {
   return res.status(200).json(result);
 });
 
-app.post('/login', (req, res, next) => {
+app.post('/login', validateEmail, validatePassword, (req, res, _next) => {
   const { name, password } = req.body;
   const token = keyRandomToken();
   if(name, password) return res.status(200).json({token})
