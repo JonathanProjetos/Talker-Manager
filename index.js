@@ -52,11 +52,27 @@ app.post('/talker',
 
 app.get('/talker/:id', async (req, res) => {
   const { id } = req.params;
-  const list = await fs.readFile(PATH, 'utf-8');
-  const talkerList = JSON.parse(list);
+  const speakerList = await fs.readFile(PATH, 'utf-8');
+  const talkerList = JSON.parse(speakerList);
   const result = talkerList.find((d) => d.id === Number(id));
   if (!result) return res.status(404).json({ message: 'Pessoa palestrante não encontrada' });
   return res.status(200).json(result);
+});
+
+app.put('/talker/:id',
+authenticToken, 
+verifyRegistryUserName, 
+verifyRegistryUserAge,
+verifyRegistryUserTalk,
+verifyRegistryUserRate, async (req, res) => {
+  const { id } = req.params;
+  const { name, age, talk } = req.body;
+  const speakerList = await fs.readFile(PATH, 'utf-8');
+  const talkerList = JSON.parse(speakerList);
+  const result = talkerList.findIndex((d) => d.id === Number(id));
+  talkerList[result] = { ...talkerList[result], name, age, talk };
+  await fs.writeFile('./talker.json', JSON.stringify(talkerList));
+  return res.status(200).json(talkerList[result]);
 });
 
 app.listen(PORT, () => {
