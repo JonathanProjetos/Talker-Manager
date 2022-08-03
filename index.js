@@ -10,7 +10,6 @@ const { authenticToken } = require('./middlewares/authenticToken');
 const { verifyArryaUsers } = require('./middlewares/talker');
 const { keyRandomToken } = require('./middlewares/tokenGenerator');
 const { validateEmail, validatePassword } = require('./middlewares/verifyEmailPassword');
-// const talker = require('./talker.json');
 
 const app = express();
 app.use(bodyParser.json());
@@ -30,7 +29,6 @@ app.get('/talker', verifyArryaUsers, async (_req, _res) => {
 });
 
 app.post('/login', validateEmail, validatePassword, (req, res, _next) => {
-  // const { name, password } = req.body;
   const token = keyRandomToken();
   return res.status(200).json({ token });
 });
@@ -73,6 +71,15 @@ verifyRegistryUserRate, async (req, res) => {
   talkerList[result] = { ...talkerList[result], name, age, talk };
   await fs.writeFile('./talker.json', JSON.stringify(talkerList));
   return res.status(200).json(talkerList[result]);
+});
+
+app.delete('/talker/:id', authenticToken, async (req, res) => {
+  const { id } = req.params;
+  const speakerList = await fs.readFile(PATH, 'utf-8');
+  const talkerList = JSON.parse(speakerList);
+  const filterId = talkerList.filter((f) => f.id !== Number(id));
+  await fs.writeFile('./talker.json', JSON.stringify(filterId));
+  return res.status(204).end();
 });
 
 app.listen(PORT, () => {
