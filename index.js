@@ -1,7 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs').promises;
-const { verifyRegistryUserName } = require('./middlewares/verifyRegistry');
+const { 
+  verifyRegistryUserName,
+  verifyRegistryUserAge,
+  verifyRegistryUserTalk,
+  verifyRegistryUserRate } = require('./middlewares/verifyRegistry');
 const { authenticToken } = require('./middlewares/authenticToken');
 const { verifyArryaUsers } = require('./middlewares/talker');
 const { keyRandomToken } = require('./middlewares/tokenGenerator');
@@ -31,7 +35,12 @@ app.post('/login', validateEmail, validatePassword, (req, res, _next) => {
   return res.status(200).json({ token });
 });
 
-app.post('/talker', authenticToken, verifyRegistryUserName, async (req, res) => {
+app.post('/talker', 
+  authenticToken, 
+  verifyRegistryUserName, 
+  verifyRegistryUserAge,
+  verifyRegistryUserTalk,
+  verifyRegistryUserRate, async (req, res) => {
   const { name, age, talk: { watchedAt, rate } } = req.body;
   const list = JSON.parse(await fs.readFile(PATH, 'utf-8'));
   const id = list.length + 1;
