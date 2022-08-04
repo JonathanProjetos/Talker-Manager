@@ -21,7 +21,6 @@ const verifyRegistryUserAge = (req, res, next) => {
 
 const verifyRegistryUserTalk = (req, res, next) => {
   const { talk } = req.body;
-  // const { talk: { watchedAt, rate } } = req.body;
   const dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
 
   if (!talk) return res.status(400).json({ message: 'O campo "talk" é obrigatório' });
@@ -34,7 +33,6 @@ const verifyRegistryUserTalk = (req, res, next) => {
     return res.status(400).json({ message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' });
   } 
   
-  // f (!talk.rate) return res.status(400).json({ message: 'O campo "rate" é obrigatório' });
   next();
 };
 
