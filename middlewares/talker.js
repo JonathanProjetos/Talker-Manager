@@ -1,5 +1,4 @@
 const fs = require('fs').promises;
-// const talker = require('../talker.json');
 
 const PATH = './talker.json';
 
