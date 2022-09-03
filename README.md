@@ -24,7 +24,7 @@ Esta é uma aplicação de cadastro de talkers (palestrantes) em que será poss�
 
 ##### Esperado
 
- O endpoint todos os talkers existentes. 
+ O endpoint traz todos os talkers existentes. 
 
   ```json
      [
