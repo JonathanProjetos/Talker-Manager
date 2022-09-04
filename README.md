@@ -253,7 +253,7 @@ docker-compose up -d
 ## Rodando a aplicação
 ```
 cd Talker-Manager/
-npm run debug
+npm run dev
 ```
 
 ## Aviso Importante 
