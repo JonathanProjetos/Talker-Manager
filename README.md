@@ -145,7 +145,7 @@ Esta é uma aplicação de cadastro de talkers (palestrantes) em que será poss�
 
 - Caso nenhuma pessoa palestrante satisfaça a busca, o endpoint deve retornar o status 200 e um array vazio.
 
-#### Verbo Get : http://localhost:3000/talker/1
+#### Verbo Get : http://localhost:3000/talker/:id
 
 ##### Esperado
 
@@ -177,7 +177,7 @@ Esta é uma aplicação de cadastro de talkers (palestrantes) em que será poss�
     }
     ```
     
-#### Verbo Put : http://localhost:3000/talker/1
+#### Verbo Put : http://localhost:3000/talker/:id
 
 ##### Esperado
 
@@ -208,7 +208,7 @@ Esta é uma aplicação de cadastro de talkers (palestrantes) em que será poss�
     }
     ```
     
-#### Verbo Delete : http://localhost:3000/talker/1
+#### Verbo Delete : http://localhost:3000/talker/:id
 
 ##### Esperado
 
